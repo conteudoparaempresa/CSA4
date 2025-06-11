@@ -1,15 +1,25 @@
+"use client"
+
+import { useState } from "react"
 import Link from "next/link"
-import { ArrowRight, Car, CheckCircle, Clock, CreditCard, MapPin, MessageSquare, ShieldCheck } from "lucide-react"
+import {
+  ArrowRight,
+  Car,
+  CheckCircle,
+  Clock,
+  CreditCard,
+  MapPin,
+  MessageSquare,
+  ShieldCheck,
+  Menu,
+  X,
+} from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { FormularioVeiculo } from "@/components/formulario-veiculo"
 import { FormularioVeiculoCompacto } from "@/components/formulario-veiculo-compacto"
 
-import { useState } from "react"
-import { Menu, X } from "lucide-react"
-;("use client")
-
-export default function Home() {
+export default function ClientPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   return (
