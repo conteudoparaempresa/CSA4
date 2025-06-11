@@ -4,6 +4,7 @@ import { ArrowRight, Car, CheckCircle, Clock, CreditCard, MapPin, MessageSquare,
 
 import { Button } from "@/components/ui/button"
 import { FormularioVeiculo } from "@/components/formulario-veiculo"
+import { FormularioVeiculoCompacto } from "@/components/formulario-veiculo-compacto"
 
 export const metadata: Metadata = {
   title: "Compro Auto - Venda seu veículo de forma rápida e segura",
@@ -44,7 +45,7 @@ export default function Home() {
                   Venda seu veículo de forma <span className="text-blue-600">rápida, segura</span> e com avaliação justa
                 </h1>
                 <p className="text-lg text-gray-600 md:text-xl">
-                  Receba uma proposta em até 24 horas e tenha o dinheiro na sua conta em até 48 horas após a aprovação.
+                  Descubra quanto pagamos pelo seu veículo de forma 100% online.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Button asChild size="lg" className="gap-2">
@@ -59,13 +60,7 @@ export default function Home() {
               </div>
               <div className="relative mx-auto aspect-video w-full max-w-lg rounded-xl bg-gradient-to-br from-blue-600 to-blue-400 p-1 shadow-xl">
                 <div className="h-full w-full rounded-lg bg-white/90 p-4 backdrop-blur-sm">
-                  <div className="flex h-full flex-col items-center justify-center text-center">
-                    <Car className="h-16 w-16 text-blue-600 mb-4" />
-                    <h3 className="text-xl font-bold">Avaliação Gratuita</h3>
-                    <p className="mt-2 text-gray-600">
-                      Preencha o formulário e receba uma avaliação justa do seu veículo em até 24 horas.
-                    </p>
-                  </div>
+                  <FormularioVeiculoCompacto />
                 </div>
               </div>
             </div>
@@ -88,7 +83,7 @@ export default function Home() {
                 </div>
                 <h3 className="text-xl font-bold">1. Preencha o Formulário</h3>
                 <p className="mt-2 text-gray-600">
-                  Informe os dados do seu veículo no formulário abaixo para iniciar o processo de avaliação.
+                  Informe os dados do seu veículo no formulário acima para iniciar o processo de avaliação.
                 </p>
               </div>
               <div className="relative flex flex-col items-center text-center p-6 rounded-xl border bg-white shadow-sm transition-all hover:shadow-md">
