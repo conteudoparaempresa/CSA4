@@ -89,21 +89,21 @@ export function FormularioVeiculoCompacto() {
 
   return (
     <div className="h-full">
-      <div className="mb-3">
-        <h3 className="text-lg font-bold text-center">Avaliação Gratuita</h3>
-        <p className="text-xs text-gray-600 text-center">Receba uma proposta em até 24h</p>
+      <div className="mb-4">
+        <h3 className="text-lg font-bold text-center text-gray-900">Avaliação Gratuita</h3>
+        <p className="text-sm text-gray-600 text-center">Receba uma proposta em até 24h</p>
       </div>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <FormField
               control={form.control}
               name="nome"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder="Seu nome" className="h-8 text-xs" {...field} />
+                    <Input placeholder="Seu nome" className="h-9 text-sm" {...field} />
                   </FormControl>
                   <FormMessage className="text-xs" />
                 </FormItem>
@@ -115,7 +115,7 @@ export function FormularioVeiculoCompacto() {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder="WhatsApp" className="h-8 text-xs" {...field} />
+                    <Input placeholder="WhatsApp" className="h-9 text-sm" {...field} />
                   </FormControl>
                   <FormMessage className="text-xs" />
                 </FormItem>
@@ -123,7 +123,7 @@ export function FormularioVeiculoCompacto() {
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <FormField
               control={form.control}
               name="marca"
@@ -131,13 +131,13 @@ export function FormularioVeiculoCompacto() {
                 <FormItem>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
-                      <SelectTrigger className="h-8 text-xs">
+                      <SelectTrigger className="h-9 text-sm">
                         <SelectValue placeholder="Marca" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
                       {marcas.map((marca) => (
-                        <SelectItem key={marca} value={marca} className="text-xs">
+                        <SelectItem key={marca} value={marca} className="text-sm">
                           {marca}
                         </SelectItem>
                       ))}
@@ -153,7 +153,7 @@ export function FormularioVeiculoCompacto() {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder="Modelo" className="h-8 text-xs" {...field} />
+                    <Input placeholder="Modelo" className="h-9 text-sm" {...field} />
                   </FormControl>
                   <FormMessage className="text-xs" />
                 </FormItem>
@@ -161,14 +161,14 @@ export function FormularioVeiculoCompacto() {
             />
           </div>
 
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <FormField
               control={form.control}
               name="ano"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder="Ano" className="h-8 text-xs" {...field} />
+                    <Input placeholder="Ano" className="h-9 text-sm" {...field} />
                   </FormControl>
                   <FormMessage className="text-xs" />
                 </FormItem>
@@ -181,13 +181,13 @@ export function FormularioVeiculoCompacto() {
                 <FormItem>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
-                      <SelectTrigger className="h-8 text-xs">
+                      <SelectTrigger className="h-9 text-sm">
                         <SelectValue placeholder="Cor" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
                       {cores.map((cor) => (
-                        <SelectItem key={cor} value={cor} className="text-xs">
+                        <SelectItem key={cor} value={cor} className="text-sm">
                           {cor}
                         </SelectItem>
                       ))}
@@ -203,7 +203,7 @@ export function FormularioVeiculoCompacto() {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder="KM" className="h-8 text-xs" {...field} />
+                    <Input placeholder="KM" className="h-9 text-sm" {...field} />
                   </FormControl>
                   <FormMessage className="text-xs" />
                 </FormItem>
@@ -211,7 +211,11 @@ export function FormularioVeiculoCompacto() {
             />
           </div>
 
-          <Button type="submit" className="w-full h-8 text-xs" disabled={isLoading}>
+          <Button
+            type="submit"
+            className="w-full h-10 text-sm bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 transition-all"
+            disabled={isLoading}
+          >
             {isLoading ? "Enviando..." : "Receber Proposta"}
           </Button>
         </form>

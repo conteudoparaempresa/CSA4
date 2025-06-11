@@ -58,8 +58,8 @@ export default function Home() {
                   </Button>
                 </div>
               </div>
-              <div className="relative mx-auto aspect-video w-full max-w-lg rounded-xl bg-gradient-to-br from-blue-600 to-blue-400 p-1 shadow-xl">
-                <div className="h-full w-full rounded-lg bg-white/90 p-4 backdrop-blur-sm">
+              <div className="relative mx-auto w-full max-w-lg rounded-xl bg-gradient-to-br from-blue-600 via-blue-500 to-blue-400 p-[2px] shadow-xl">
+                <div className="h-full w-full rounded-lg bg-white/95 p-5 backdrop-blur-sm">
                   <FormularioVeiculoCompacto />
                 </div>
               </div>
