@@ -36,7 +36,7 @@ export default function Home() {
         </div>
       </header>
       <main className="flex-1">
-        <section className="relative overflow-hidden bg-gradient-to-b from-blue-50 to-white py-20 md:py-32">
+        <section className="relative overflow-hidden bg-gradient-to-b from-blue-50 to-white min-h-screen flex items-center">
           <div className="container relative z-10">
             <div className="grid gap-8 md:grid-cols-2 md:gap-12 items-center">
               <div className="space-y-6">
