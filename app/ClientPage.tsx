@@ -295,11 +295,7 @@ export default function ClientPage() {
             <div className="grid gap-8 md:grid-cols-3">
               <div className="bg-white rounded-xl overflow-hidden shadow-md transition-all hover:shadow-lg">
                 <div className="h-48 overflow-hidden">
-                  <img
-                    src="/placeholder.svg?height=400&width=600"
-                    alt="Veículo popular hatch"
-                    className="w-full h-full object-cover"
-                  />
+                  <img src="/images/fox.webp" alt="Veículo popular hatch" className="w-full h-full object-cover" />
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-bold mb-2">Leves</h3>
@@ -312,7 +308,7 @@ export default function ClientPage() {
               <div className="bg-white rounded-xl overflow-hidden shadow-md transition-all hover:shadow-lg">
                 <div className="h-48 overflow-hidden">
                   <img
-                    src="/placeholder.svg?height=400&width=600"
+                    src="/images/land-rover.webp"
                     alt="Veículo de luxo blindado"
                     className="w-full h-full object-cover"
                   />
@@ -328,7 +324,7 @@ export default function ClientPage() {
               <div className="bg-white rounded-xl overflow-hidden shadow-md transition-all hover:shadow-lg">
                 <div className="h-48 overflow-hidden">
                   <img
-                    src="/placeholder.svg?height=400&width=600"
+                    src="/images/fiorino-nova.webp"
                     alt="Veículo utilitário pequeno como Fiat Fiorino"
                     className="w-full h-full object-cover"
                   />
