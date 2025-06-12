@@ -13,14 +13,49 @@ import {
   ShieldCheck,
   Menu,
   X,
+  ChevronDown,
+  ChevronUp,
 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
-import { FormularioVeiculo } from "@/components/formulario-veiculo"
 import { FormularioVeiculoCompacto } from "@/components/formulario-veiculo-compacto"
 
 export default function ClientPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [openFaq, setOpenFaq] = useState<number | null>(null)
+
+  const toggleFaq = (index: number) => {
+    setOpenFaq(openFaq === index ? null : index)
+  }
+
+  const faqs = [
+    {
+      question: "Existe algum custo?",
+      answer: "Durante todo o processo você não precisa pagar nada, é tudo por nossa conta.",
+    },
+    {
+      question: "Compram motos?",
+      answer: "No momento estamos comprando apenas veículos.",
+    },
+    {
+      question: "Compram veículos de leilão?",
+      answer: "Compramos sim, mas somente leilão financeira.",
+    },
+    {
+      question: "Até que ano vocês compram?",
+      answer: "• Veículos leves a partir do ano 2000.\n• Veículos blindados qualquer ano.",
+    },
+    {
+      question: "Onde vocês ficam?",
+      answer:
+        "Nós estamos na Freguesia do Ó, na Rua Professor João Machado, 684.\n\nPróximo a Av. Edgar Facó e Ministro Petrônio Portella.",
+    },
+    {
+      question: "É seguro?",
+      answer:
+        "Sim, é totalmente seguro.\n\nSua segurança é nossa prioridade, conosco você está no controle de tudo.\n\nVocê só vende seu veículo se gostar da nossa proposta e só entrega o veículo após receber o pagamento à vista em sua conta.\n\nEstamos no mercado desde 2021 e já ajudamos milhares de pessoas a venderem seus veículos, tornando o processo mais seguro, prático e rápido.",
+    },
+  ]
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -120,10 +155,8 @@ export default function ClientPage() {
                   </Button>
                 </div>
               </div>
-              <div className="relative mx-auto w-full max-w-lg rounded-xl bg-gradient-to-br from-blue-600 via-blue-500 to-blue-400 p-[2px] shadow-xl">
-                <div className="h-full w-full rounded-lg bg-white/95 p-5 backdrop-blur-sm">
-                  <FormularioVeiculoCompacto />
-                </div>
+              <div className="relative mx-auto w-full max-w-lg rounded-xl bg-white/95 p-5 backdrop-blur-sm shadow-lg">
+                <FormularioVeiculoCompacto />
               </div>
             </div>
           </div>
@@ -237,18 +270,101 @@ export default function ClientPage() {
           </div>
         </section>
 
-        <section id="formulario" className="py-20 scroll-mt-16">
+        <section id="veiculos" className="py-20 scroll-mt-16 bg-gradient-to-b from-white to-blue-50">
           <div className="container">
-            <div className="mx-auto max-w-3xl">
-              <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold md:text-4xl">Venda seu veículo agora</h2>
-                <p className="mt-4 text-gray-600">
-                  Preencha o formulário abaixo e receba uma avaliação gratuita do seu veículo em até 24 horas.
-                </p>
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold md:text-4xl">Veículos que compramos</h2>
+              <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
+                Avaliamos e compramos diversos tipos de veículos com as melhores condições do mercado.
+              </p>
+            </div>
+
+            <div className="grid gap-8 md:grid-cols-3">
+              <div className="bg-white rounded-xl overflow-hidden shadow-md transition-all hover:shadow-lg">
+                <div className="h-48 overflow-hidden">
+                  <img
+                    src="/placeholder.svg?height=400&width=600"
+                    alt="Veículo popular hatch"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-2">Leves</h3>
+                  <p className="text-gray-600">
+                    Compramos veículos leves como Picape, SUV, sedan, entre outros de qualquer marca ou valor.
+                  </p>
+                </div>
               </div>
-              <div className="rounded-xl border bg-white p-6 shadow-sm md:p-8">
-                <FormularioVeiculo />
+
+              <div className="bg-white rounded-xl overflow-hidden shadow-md transition-all hover:shadow-lg">
+                <div className="h-48 overflow-hidden">
+                  <img
+                    src="/placeholder.svg?height=400&width=600"
+                    alt="Veículo de luxo blindado"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-2">Blindado</h3>
+                  <p className="text-gray-600">
+                    Compramos veículos blindados de qualquer marca, valor ou ano de fabricação.
+                  </p>
+                </div>
               </div>
+
+              <div className="bg-white rounded-xl overflow-hidden shadow-md transition-all hover:shadow-lg">
+                <div className="h-48 overflow-hidden">
+                  <img
+                    src="/placeholder.svg?height=400&width=600"
+                    alt="Veículo utilitário pequeno como Fiat Fiorino"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-2">Utilitários</h3>
+                  <p className="text-gray-600">
+                    Compramos veículos utilitário de pequeno porte, como Fiorino, Kangoo, Jumpy, etc.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="faq" className="py-20 scroll-mt-16">
+          <div className="container">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold md:text-4xl">Perguntas Frequentes</h2>
+              <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
+                Tire suas dúvidas sobre nosso processo de compra de veículos.
+              </p>
+            </div>
+
+            <div className="max-w-3xl mx-auto space-y-4">
+              {faqs.map((faq, index) => (
+                <div key={index} className="bg-white rounded-xl border shadow-sm overflow-hidden">
+                  <button
+                    className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
+                    onClick={() => toggleFaq(index)}
+                  >
+                    <h3 className="font-semibold text-gray-900">{faq.question}</h3>
+                    {openFaq === index ? (
+                      <ChevronUp className="h-5 w-5 text-blue-600 flex-shrink-0" />
+                    ) : (
+                      <ChevronDown className="h-5 w-5 text-blue-600 flex-shrink-0" />
+                    )}
+                  </button>
+                  <div
+                    className={`transition-all duration-300 ease-in-out ${
+                      openFaq === index ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+                    } overflow-hidden`}
+                  >
+                    <div className="px-6 pb-4">
+                      <p className="text-gray-600 whitespace-pre-line">{faq.answer}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
