@@ -1,20 +1,20 @@
 "use client"
 
-import { useState } from "react"
-import Link from "next/link"
+import type React from "react"
+
+import { useState, useRef } from "react"
 import {
-  ArrowRight,
   Car,
   CheckCircle,
   Clock,
   CreditCard,
-  MapPin,
   MessageSquare,
   ShieldCheck,
   Menu,
   X,
   ChevronDown,
   ChevronUp,
+  Award,
 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -24,8 +24,24 @@ export default function ClientPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [openFaq, setOpenFaq] = useState<number | null>(null)
 
+  // Refs para as seções
+  const comoFuncionaRef = useRef<HTMLElement>(null)
+  const beneficiosRef = useRef<HTMLElement>(null)
+  const veiculosRef = useRef<HTMLElement>(null)
+  const faqRef = useRef<HTMLElement>(null)
+  const formularioRef = useRef<HTMLDivElement>(null)
+
   const toggleFaq = (index: number) => {
     setOpenFaq(openFaq === index ? null : index)
+  }
+
+  // Função para scroll suave sem alterar a URL
+  const scrollToSection = (ref: React.RefObject<HTMLElement>) => {
+    if (ref.current) {
+      ref.current.scrollIntoView({ behavior: "smooth" })
+    }
+    // Fechar o menu mobile se estiver aberto
+    setIsMobileMenuOpen(false)
   }
 
   const faqs = [
@@ -68,19 +84,28 @@ export default function ClientPage() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-6">
-            <Link href="#como-funciona" className="text-sm font-medium hover:text-blue-600 transition-colors">
+            <button
+              onClick={() => scrollToSection(comoFuncionaRef)}
+              className="text-sm font-medium hover:text-blue-600 transition-colors"
+            >
               Como Funciona
-            </Link>
-            <Link href="#beneficios" className="text-sm font-medium hover:text-blue-600 transition-colors">
+            </button>
+            <button
+              onClick={() => scrollToSection(beneficiosRef)}
+              className="text-sm font-medium hover:text-blue-600 transition-colors"
+            >
               Benefícios
-            </Link>
-            <Link href="#formulario" className="text-sm font-medium hover:text-blue-600 transition-colors">
+            </button>
+            <button
+              onClick={() => scrollToSection(formularioRef)}
+              className="text-sm font-medium hover:text-blue-600 transition-colors"
+            >
               Vender Meu Carro
-            </Link>
+            </button>
           </nav>
 
-          <Button asChild size="sm" className="hidden md:inline-flex">
-            <Link href="#formulario">Avaliar Meu Veículo</Link>
+          <Button onClick={() => scrollToSection(formularioRef)} size="sm" className="hidden md:inline-flex">
+            Avaliar Meu Veículo
           </Button>
 
           {/* Mobile Menu Button */}
@@ -102,32 +127,27 @@ export default function ClientPage() {
           }`}
         >
           <nav className="container py-4 space-y-4">
-            <Link
-              href="#como-funciona"
-              className="block text-sm font-medium hover:text-blue-600 transition-colors py-2"
-              onClick={() => setIsMobileMenuOpen(false)}
+            <button
+              className="block text-sm font-medium hover:text-blue-600 transition-colors py-2 w-full text-left"
+              onClick={() => scrollToSection(comoFuncionaRef)}
             >
               Como Funciona
-            </Link>
-            <Link
-              href="#beneficios"
-              className="block text-sm font-medium hover:text-blue-600 transition-colors py-2"
-              onClick={() => setIsMobileMenuOpen(false)}
+            </button>
+            <button
+              className="block text-sm font-medium hover:text-blue-600 transition-colors py-2 w-full text-left"
+              onClick={() => scrollToSection(beneficiosRef)}
             >
               Benefícios
-            </Link>
-            <Link
-              href="#formulario"
-              className="block text-sm font-medium hover:text-blue-600 transition-colors py-2"
-              onClick={() => setIsMobileMenuOpen(false)}
+            </button>
+            <button
+              className="block text-sm font-medium hover:text-blue-600 transition-colors py-2 w-full text-left"
+              onClick={() => scrollToSection(formularioRef)}
             >
               Vender Meu Carro
-            </Link>
+            </button>
             <div className="pt-2">
-              <Button asChild size="sm" className="w-full">
-                <Link href="#formulario" onClick={() => setIsMobileMenuOpen(false)}>
-                  Avaliar Meu Veículo
-                </Link>
+              <Button onClick={() => scrollToSection(formularioRef)} size="sm" className="w-full">
+                Avaliar Meu Veículo
               </Button>
             </div>
           </nav>
@@ -136,26 +156,23 @@ export default function ClientPage() {
       <main className="flex-1">
         <section className="relative overflow-hidden bg-gradient-to-b from-blue-50 to-white min-h-screen flex items-center">
           <div className="container relative z-10">
-            <div className="grid gap-8 md:grid-cols-2 md:gap-12 items-center">
+            <div className="grid gap-8 md:grid-cols-2 md:gap-12 items-center -mt-16">
               <div className="space-y-6">
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-50 to-blue-100 border border-blue-200 rounded-full text-blue-700 text-sm font-medium shadow-sm">
+                  <Award className="h-4 w-4" />
+                  <span>Nº 1 em compra de veículos</span>
+                </div>
                 <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
                   Venda seu veículo de forma <span className="text-blue-600">rápida, segura</span> e com avaliação justa
                 </h1>
                 <p className="text-lg text-gray-600 md:text-xl">
                   Descubra quanto pagamos pelo seu veículo de forma 100% online.
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Button asChild size="lg" className="gap-2">
-                    <Link href="#formulario">
-                      Avaliar Meu Veículo <ArrowRight className="h-4 w-4" />
-                    </Link>
-                  </Button>
-                  <Button asChild variant="outline" size="lg">
-                    <Link href="#como-funciona">Como Funciona</Link>
-                  </Button>
-                </div>
               </div>
-              <div className="relative mx-auto w-full max-w-lg rounded-xl bg-white/95 p-5 backdrop-blur-sm shadow-lg">
+              <div
+                ref={formularioRef}
+                className="relative mx-auto w-full max-w-lg rounded-xl bg-white/95 p-5 backdrop-blur-sm shadow-lg"
+              >
                 <FormularioVeiculoCompacto />
               </div>
             </div>
@@ -163,7 +180,7 @@ export default function ClientPage() {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.1),transparent_60%)]" />
         </section>
 
-        <section id="como-funciona" className="py-20 scroll-mt-16">
+        <section ref={comoFuncionaRef} className="py-20 scroll-mt-16">
           <div className="container">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold md:text-4xl">Como Funciona</h2>
@@ -203,7 +220,7 @@ export default function ClientPage() {
           </div>
         </section>
 
-        <section id="beneficios" className="py-20 bg-gradient-to-b from-white to-blue-50 scroll-mt-16">
+        <section ref={beneficiosRef} className="py-20 bg-gradient-to-b from-white to-blue-50 scroll-mt-16">
           <div className="container">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold md:text-4xl">Por que vender para nós?</h2>
@@ -216,9 +233,7 @@ export default function ClientPage() {
                 <CheckCircle className="h-6 w-6 text-blue-600 flex-shrink-0" />
                 <div>
                   <h3 className="font-bold">Pagamento Rápido</h3>
-                  <p className="mt-1 text-sm text-gray-600">
-                    Receba o pagamento em até 48 horas após a aprovação da venda.
-                  </p>
+                  <p className="mt-1 text-sm text-gray-600">Receba o pagamento na hora após a aprovação da venda.</p>
                 </div>
               </div>
               <div className="flex gap-4 p-6 rounded-xl bg-white shadow-sm">
@@ -243,17 +258,15 @@ export default function ClientPage() {
                 <Clock className="h-6 w-6 text-blue-600 flex-shrink-0" />
                 <div>
                   <h3 className="font-bold">Processo Rápido</h3>
-                  <p className="mt-1 text-sm text-gray-600">
-                    Todo o processo de venda pode ser concluído em até 3 dias úteis.
-                  </p>
+                  <p className="mt-1 text-sm text-gray-600">Todo o processo de venda pode ser concluído em até 24h.</p>
                 </div>
               </div>
               <div className="flex gap-4 p-6 rounded-xl bg-white shadow-sm">
-                <MapPin className="h-6 w-6 text-blue-600 flex-shrink-0" />
+                <CreditCard className="h-6 w-6 text-blue-600 flex-shrink-0" />
                 <div>
-                  <h3 className="font-bold">Atendimento Local</h3>
+                  <h3 className="font-bold">Financiamento e Dívidas</h3>
                   <p className="mt-1 text-sm text-gray-600">
-                    Vistoria e retirada do veículo no local de sua preferência.
+                    Nós quitamos todos os débitos do seu veículo e transferimos o valor restante para sua conta.
                   </p>
                 </div>
               </div>
@@ -270,7 +283,7 @@ export default function ClientPage() {
           </div>
         </section>
 
-        <section id="veiculos" className="py-20 scroll-mt-16 bg-gradient-to-b from-white to-blue-50">
+        <section ref={veiculosRef} className="py-20 scroll-mt-16 bg-gradient-to-b from-white to-blue-50">
           <div className="container">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold md:text-4xl">Veículos que compramos</h2>
@@ -331,7 +344,7 @@ export default function ClientPage() {
           </div>
         </section>
 
-        <section id="faq" className="py-20 scroll-mt-16">
+        <section ref={faqRef} className="py-20 scroll-mt-16">
           <div className="container">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold md:text-4xl">Perguntas Frequentes</h2>
