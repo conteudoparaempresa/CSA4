@@ -210,8 +210,8 @@ export default function Home() {
               <div className="bg-white rounded-xl overflow-hidden shadow-md transition-all hover:shadow-lg">
                 <div className="h-48 overflow-hidden">
                   <Image
-                    src="/images/fox.webp"
-                    alt="Veículo popular hatch"
+                    src="/images/fox2.webp"
+                    alt="Volkswagen Fox Connect prata em movimento"
                     width={600}
                     height={400}
                     className="w-full h-full object-cover"
