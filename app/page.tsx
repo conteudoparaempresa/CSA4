@@ -49,7 +49,7 @@ export default function Home() {
           <div className="flex items-center">
             <div className="h-10 w-10 relative flex items-center justify-center">
               <Image
-                src="/images/icone-carro-azul.webp"
+                src="/images/icone-compro-seu-auto-azul.svg"
                 alt="Ícone Compro Auto"
                 width={40}
                 height={40}

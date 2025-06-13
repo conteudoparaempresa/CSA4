@@ -18,7 +18,7 @@ export default function RootLayout({
     <html lang="pt-BR" className="scroll-smooth">
       <head>
         {/* Preload da imagem crítica */}
-        <link rel="preload" href="/images/icone-carro-azul.webp" as="image" />
+        <link rel="preload" href="/images/icone-compro-seu-auto-azul.svg" as="image" />
       </head>
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
