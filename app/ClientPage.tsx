@@ -163,9 +163,9 @@ export default function ClientPage() {
         </div>
       </header>
       <main className="flex-1">
-        <section className="relative overflow-hidden bg-gradient-to-b from-blue-50 to-white min-h-screen flex items-center">
+        <section className="relative overflow-hidden bg-gradient-to-b from-blue-50 to-white min-h-screen flex items-center pt-20 md:pt-0">
           <div className="container relative z-10">
-            <div className="grid gap-8 md:grid-cols-2 md:gap-12 items-center -mt-16">
+            <div className="grid gap-8 md:grid-cols-2 md:gap-12 items-center md:-mt-16">
               <div className="space-y-6">
                 <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-50 to-blue-100 border border-blue-200 rounded-full text-blue-700 text-sm font-medium shadow-sm">
                   <Award className="h-4 w-4" />
