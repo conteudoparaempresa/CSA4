@@ -1,11 +1,29 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import { Menu, X, ChevronDown, ChevronUp } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { FormularioVeiculoCompacto } from "@/components/formulario-veiculo-compacto"
+import dynamic from "next/dynamic"
+
+// Carregamento dinâmico do componente de formulário pesado
+const FormularioVeiculoCompacto = dynamic(
+  () => import("@/components/formulario-veiculo-compacto").then((mod) => ({ default: mod.FormularioVeiculoCompacto })),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="p-6 animate-pulse">
+        <div className="h-6 bg-slate-200 rounded mb-4"></div>
+        <div className="h-10 bg-slate-200 rounded mb-3"></div>
+        <div className="grid grid-cols-2 gap-3 mb-3">
+          <div className="h-10 bg-slate-200 rounded"></div>
+          <div className="h-10 bg-slate-200 rounded"></div>
+        </div>
+        <div className="h-10 bg-slate-200 rounded"></div>
+      </div>
+    ),
+  },
+)
 
 type SectionRefs = {
   comoFuncionaRef: React.RefObject<HTMLElement>
@@ -25,12 +43,10 @@ export function ClientInteractions({ refs }: { refs: SectionRefs }) {
     setOpenFaq(openFaq === index ? null : index)
   }
 
-  // Função para scroll suave sem alterar a URL
   const scrollToSection = (ref: React.RefObject<HTMLElement>) => {
     if (ref.current) {
       ref.current.scrollIntoView({ behavior: "smooth" })
     }
-    // Fechar o menu mobile se estiver aberto
     setIsMobileMenuOpen(false)
   }
 

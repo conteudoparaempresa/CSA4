@@ -1,14 +1,12 @@
 import type { Metadata } from "next"
 import Image from "next/image"
+import { Suspense } from "react"
 import { CheckCircle, Clock, CreditCard, MessageSquare, ShieldCheck, Award, Car, Phone, MapPin } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { ClientInteractionsWrapper } from "./components/ClientInteractionsWrapper"
-
-export const metadata: Metadata = {
-  title: "Compro Auto - Venda seu veículo de forma rápida e segura",
-  description: "Venda seu veículo de forma rápida, segura e com avaliação justa. Receba uma proposta em até 24 horas.",
-}
+import { VeiculosSection } from "./sections/VeiculosSection"
+import { FaqSection } from "./sections/FaqSection"
 
 const faqs = [
   {
@@ -38,6 +36,11 @@ const faqs = [
       "Sim, é totalmente seguro.\n\nSua segurança é nossa prioridade, conosco você está no controle de tudo.\n\nVocê só vende seu veículo se gostar da nossa proposta e só entrega o veículo após receber o pagamento à vista em sua conta.\n\nEstamos no mercado desde 2021 e já ajudamos milhares de pessoas a venderem seus veículos, tornando o processo mais seguro, prático e rápido.",
   },
 ]
+
+export const metadata: Metadata = {
+  title: "Compro Auto - Venda seu veículo de forma rápida e segura",
+  description: "Venda seu veículo de forma rápida, segura e com avaliação justa. Receba uma proposta em até 24 horas.",
+}
 
 export default function Home() {
   return (
@@ -97,8 +100,8 @@ export default function Home() {
                         <Award className="h-4 w-4" />
                         <span>Nº 1 em compra de veículos</span>
                       </div>
-                      {/* LCP Element - renderizado no servidor */}
-                      <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
+                      {/* LCP Element com classe CSS crítico inline */}
+                      <h1 className="hero-title">
                         Venda seu veículo de forma <span className="text-blue-600">rápida, segura</span> e com avaliação
                         justa
                       </h1>
@@ -219,92 +222,49 @@ export default function Home() {
                 </div>
               </section>
 
-              <section ref={veiculosRef} className="py-20 scroll-mt-16 bg-gradient-to-b from-white to-blue-50">
-                <div className="container">
-                  <div className="text-center mb-12">
-                    <h2 className="text-3xl font-bold md:text-4xl">Veículos que compramos</h2>
-                    <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
-                      Avaliamos e compramos diversos tipos de veículos com as melhores condições do mercado.
-                    </p>
-                  </div>
-
-                  <div className="grid gap-8 md:grid-cols-3">
-                    <div className="bg-white rounded-xl overflow-hidden shadow-md transition-all hover:shadow-lg">
-                      <div className="h-48 overflow-hidden">
-                        <Image
-                          src="/images/fox.webp"
-                          alt="Veículo popular hatch"
-                          width={600}
-                          height={400}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div className="p-6">
-                        <h3 className="text-xl font-bold mb-2">Leves</h3>
-                        <p className="text-gray-600">
-                          Compramos veículos leves como Picape, SUV, sedan, entre outros de qualquer marca ou valor.
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="bg-white rounded-xl overflow-hidden shadow-md transition-all hover:shadow-lg">
-                      <div className="h-48 overflow-hidden">
-                        <Image
-                          src="/images/land-rover.webp"
-                          alt="Veículo de luxo blindado"
-                          width={600}
-                          height={400}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div className="p-6">
-                        <h3 className="text-xl font-bold mb-2">Blindado</h3>
-                        <p className="text-gray-600">
-                          Compramos veículos blindados de qualquer marca, valor ou ano de fabricação.
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="bg-white rounded-xl overflow-hidden shadow-md transition-all hover:shadow-lg">
-                      <div className="h-48 overflow-hidden">
-                        <Image
-                          src="/images/fiorino-nova.webp"
-                          alt="Veículo utilitário pequeno como Fiat Fiorino"
-                          width={600}
-                          height={400}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div className="p-6">
-                        <h3 className="text-xl font-bold mb-2">Utilitários</h3>
-                        <p className="text-gray-600">
-                          Compramos veículos utilitário de pequeno porte, como Fiorino, Kangoo, Jumpy, etc.
-                        </p>
+              {/* Usando Suspense para as seções pesadas abaixo da dobra */}
+              <Suspense
+                fallback={
+                  <div className="py-20 px-4">
+                    <div className="container">
+                      <div className="h-8 bg-slate-200 rounded w-1/3 mx-auto mb-4"></div>
+                      <div className="h-4 bg-slate-200 rounded w-2/3 mx-auto mb-12"></div>
+                      <div className="grid gap-8 md:grid-cols-3">
+                        {[1, 2, 3].map((i) => (
+                          <div key={i} className="bg-white rounded-xl overflow-hidden shadow-sm">
+                            <div className="h-48 bg-slate-200"></div>
+                            <div className="p-6">
+                              <div className="h-6 bg-slate-200 rounded w-1/2 mb-4"></div>
+                              <div className="h-4 bg-slate-200 rounded mb-2"></div>
+                              <div className="h-4 bg-slate-200 rounded w-2/3"></div>
+                            </div>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   </div>
-                </div>
-              </section>
+                }
+              >
+                <VeiculosSection veiculosRef={veiculosRef} />
+              </Suspense>
 
-              <section ref={faqRef} className="py-20 scroll-mt-16">
-                <div className="container">
-                  <div className="text-center mb-12">
-                    <h2 className="text-3xl font-bold md:text-4xl">Perguntas Frequentes</h2>
-                    <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
-                      Tire suas dúvidas sobre nosso processo de compra de veículos.
-                    </p>
-                  </div>
-
-                  <div className="max-w-3xl mx-auto space-y-4">
-                    {faqs.map((faq, index) => (
-                      <div key={index} className="bg-white rounded-xl border shadow-sm overflow-hidden">
-                        <FaqToggle index={index} question={faq.question} />
-                        <FaqContent index={index} answer={faq.answer} />
+              <Suspense
+                fallback={
+                  <div className="py-20 px-4">
+                    <div className="container">
+                      <div className="h-8 bg-slate-200 rounded w-1/3 mx-auto mb-4"></div>
+                      <div className="h-4 bg-slate-200 rounded w-2/3 mx-auto mb-12"></div>
+                      <div className="max-w-3xl mx-auto space-y-4">
+                        {[1, 2, 3].map((i) => (
+                          <div key={i} className="h-16 bg-slate-200 rounded"></div>
+                        ))}
                       </div>
-                    ))}
+                    </div>
                   </div>
-                </div>
-              </section>
+                }
+              >
+                <FaqSection faqRef={faqRef} faqs={faqs} FaqToggle={FaqToggle} FaqContent={FaqContent} />
+              </Suspense>
             </main>
             <footer className="border-t bg-white py-12">
               <div className="container">

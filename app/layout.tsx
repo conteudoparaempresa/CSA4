@@ -1,13 +1,23 @@
 import type React from "react"
 import "@/app/globals.css"
 import { Inter } from "next/font/google"
-
+import type { Metadata } from "next"
 import { ThemeProvider } from "@/components/theme-provider"
 
+// Configuração otimizada da fonte
 const inter = Inter({
   subsets: ["latin"],
-  display: "swap", // Adicionado para melhorar o LCP
+  display: "swap",
+  preload: true,
+  weight: ["400", "500", "600", "700"], // Carrega apenas os pesos que usamos
+  variable: "--font-inter", // Permite personalização via CSS
 })
+
+export const metadata: Metadata = {
+  title: "Compro Auto - Venda seu veículo de forma rápida e segura",
+  description: "Venda seu veículo de forma rápida, segura e com avaliação justa. Receba uma proposta em até 24 horas.",
+  generator: "v0.dev",
+}
 
 export default function RootLayout({
   children,
@@ -15,16 +25,35 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="pt-BR" className="scroll-smooth">
+    <html lang="pt-BR" className={`scroll-smooth ${inter.variable}`}>
       <head>
-        {/* Preload da fonte principal para melhorar o LCP */}
-        <link
-          rel="preload"
-          href={`https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap`}
-          as="style"
+        {/* Preloads críticos para LCP */}
+        <link rel="preload" href="/images/icone-carro-azul.webp" as="image" type="image/webp" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+
+        {/* Preload do CSS crítico */}
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+            /* CSS crítico para o LCP */
+            .hero-title {
+              font-size: 2.25rem;
+              font-weight: 700;
+              line-height: 1.2;
+            }
+            @media (min-width: 768px) {
+              .hero-title {
+                font-size: 3rem;
+              }
+            }
+            @media (min-width: 1024px) {
+              .hero-title {
+                font-size: 3.75rem;
+              }
+            }
+          `,
+          }}
         />
-        {/* Preload das imagens críticas */}
-        <link rel="preload" href="/images/icone-carro-azul.webp" as="image" />
       </head>
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
@@ -33,8 +62,4 @@ export default function RootLayout({
       </body>
     </html>
   )
-}
-
-export const metadata = {
-  generator: "v0.dev",
 }

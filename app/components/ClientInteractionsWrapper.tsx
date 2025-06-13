@@ -1,12 +1,11 @@
 "use client"
 
 import type React from "react"
-
 import { useRef } from "react"
 import { ClientInteractions } from "./ClientInteractions"
 
+// Este componente é mantido o mais enxuto possível
 export function ClientInteractionsWrapper({ children }: { children: (props: any) => React.ReactNode }) {
-  // Refs para as seções
   const headerRef = useRef<HTMLElement>(null)
   const comoFuncionaRef = useRef<HTMLElement>(null)
   const beneficiosRef = useRef<HTMLElement>(null)
