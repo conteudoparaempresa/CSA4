@@ -1,39 +1,12 @@
 import type { Metadata } from "next"
 import Image from "next/image"
-import dynamic from "next/dynamic"
 import { Suspense } from "react"
 import { CheckCircle, Clock, CreditCard, MessageSquare, ShieldCheck, Award, Car, Phone, MapPin } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { ClientInteractions } from "./components/ClientInteractions"
-
-// Lazy load componentes pesados
-const FormularioWrapper = dynamic(
-  () => import("./components/FormularioWrapper").then((mod) => ({ default: mod.FormularioWrapper })),
-  {
-    loading: () => <FormularioSkeleton />,
-    ssr: false,
-  },
-)
-
-const FaqInteractive = dynamic(
-  () => import("./components/FaqInteractive").then((mod) => ({ default: mod.FaqInteractive })),
-  {
-    loading: () => (
-      <div className="space-y-4">
-        {[...Array(3)].map((_, i) => (
-          <div key={i} className="bg-white rounded-xl border shadow-sm overflow-hidden">
-            <div className="w-full px-6 py-4 flex items-center justify-between">
-              <div className="h-6 bg-gray-200 rounded w-3/4 animate-pulse"></div>
-              <div className="h-5 w-5 bg-gray-200 rounded-full animate-pulse"></div>
-            </div>
-          </div>
-        ))}
-      </div>
-    ),
-    ssr: true,
-  },
-)
+import { FormularioWrapperClient } from "./components/FormularioWrapperClient"
+import { FaqInteractiveClient } from "./components/FaqInteractiveClient"
 
 // Skeleton para o formulário
 function FormularioSkeleton() {
@@ -141,7 +114,7 @@ export default function Home() {
                 className="form-container relative mx-auto w-full max-w-lg rounded-xl bg-white/95 p-5 backdrop-blur-sm shadow-lg"
               >
                 <Suspense fallback={<FormularioSkeleton />}>
-                  <FormularioWrapper />
+                  <FormularioWrapperClient />
                 </Suspense>
               </div>
             </div>
@@ -353,7 +326,7 @@ export default function Home() {
                   </div>
                 }
               >
-                <FaqInteractive faqs={faqs} />
+                <FaqInteractiveClient faqs={faqs} />
               </Suspense>
             </div>
           </div>
