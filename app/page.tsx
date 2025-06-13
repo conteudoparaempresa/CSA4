@@ -1,16 +1,11 @@
 import type { Metadata } from "next"
 import Image from "next/image"
 import { CheckCircle, Clock, CreditCard, MessageSquare, ShieldCheck, Award, Car, Phone, MapPin } from "lucide-react"
-import { Suspense, lazy } from "react"
 
+import { Button } from "@/components/ui/button"
 import { ClientInteractions } from "./components/ClientInteractions"
-import { FormularioLeve } from "./components/FormularioLeve"
-
-// Carregamento dinâmico de componentes pesados
-const VeiculosSection = lazy(() =>
-  import("./sections/VeiculosSection").then((mod) => ({ default: mod.VeiculosSection })),
-)
-const FaqSection = lazy(() => import("./sections/FaqSection").then((mod) => ({ default: mod.FaqSection })))
+import { FormularioWrapper } from "./components/FormularioWrapper"
+import { FaqInteractive } from "./components/FaqInteractive"
 
 const faqs = [
   {
@@ -49,9 +44,9 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <div className="flex min-h-screen flex-col">
-      {/* Header com CSS crítico */}
-      <header className="header-critical">
-        <div className="container-critical">
+      {/* Header com estrutura original */}
+      <header className="absolute top-0 z-50 w-full border-b bg-white/80 backdrop-blur-md">
+        <div className="container flex h-16 items-center justify-between">
           <div className="flex items-center">
             <div className="h-10 w-10 relative flex items-center justify-center">
               <Image
@@ -69,35 +64,37 @@ export default function Home() {
       </header>
 
       <main className="flex-1">
-        {/* Hero Section com CSS crítico */}
-        <section className="hero-critical">
-          <div className="container-critical">
+        {/* Hero Section com estrutura original */}
+        <section className="relative overflow-hidden bg-gradient-to-b from-blue-50 to-white min-h-screen flex items-center pt-20 md:pt-0">
+          <div className="container relative z-10">
             <div className="grid gap-8 md:grid-cols-2 md:gap-12 items-center md:-mt-16">
               <div className="space-y-6">
                 <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-50 to-blue-100 border border-blue-200 rounded-full text-blue-700 text-sm font-medium shadow-sm">
                   <Award className="h-4 w-4" />
                   <span>Nº 1 em compra de veículos</span>
                 </div>
-                {/* LCP Element com CSS crítico */}
-                <h1 className="hero-title-critical">
-                  Venda seu veículo de forma <span style={{ color: "#2563eb" }}>rápida, segura</span> e com avaliação
-                  justa
+                <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
+                  Venda seu veículo de forma <span className="text-blue-600">rápida, segura</span> e com avaliação justa
                 </h1>
-                <p className="hero-subtitle-critical">Descubra quanto pagamos pelo seu veículo de forma 100% online.</p>
+                <p className="text-lg text-gray-600 md:text-xl">
+                  Descubra quanto pagamos pelo seu veículo de forma 100% online.
+                </p>
               </div>
 
-              {/* Formulário leve para primeira dobra */}
-              <div id="formulario" className="form-container-critical relative mx-auto w-full max-w-lg">
-                <FormularioLeve />
+              <div
+                id="formulario"
+                className="relative mx-auto w-full max-w-lg rounded-xl bg-white/95 p-5 backdrop-blur-sm shadow-lg"
+              >
+                <FormularioWrapper />
               </div>
             </div>
           </div>
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.1),transparent_60%)]" />
         </section>
 
-        {/* Seções renderizadas no servidor (críticas) */}
+        {/* Como Funciona - estrutura original */}
         <section id="como-funciona" className="py-20 scroll-mt-16">
-          <div className="container mx-auto px-4">
+          <div className="container">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold md:text-4xl">Como Funciona</h2>
               <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
@@ -136,8 +133,9 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Benefícios - estrutura original */}
         <section id="beneficios" className="py-20 bg-gradient-to-b from-white to-blue-50 scroll-mt-16">
-          <div className="container mx-auto px-4">
+          <div className="container">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold md:text-4xl">Por que vender para nós?</h2>
               <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
@@ -199,54 +197,97 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Seções carregadas dinamicamente (não críticas) */}
-        <Suspense
-          fallback={
-            <div className="py-20 px-4">
-              <div className="container mx-auto">
-                <div className="h-8 bg-slate-200 rounded w-1/3 mx-auto mb-4 animate-pulse"></div>
-                <div className="h-4 bg-slate-200 rounded w-2/3 mx-auto mb-12 animate-pulse"></div>
-                <div className="grid gap-8 md:grid-cols-3">
-                  {[1, 2, 3].map((i) => (
-                    <div key={i} className="bg-white rounded-xl overflow-hidden shadow-sm">
-                      <div className="h-48 bg-slate-200 animate-pulse"></div>
-                      <div className="p-6">
-                        <div className="h-6 bg-slate-200 rounded w-1/2 mb-4 animate-pulse"></div>
-                        <div className="h-4 bg-slate-200 rounded mb-2 animate-pulse"></div>
-                        <div className="h-4 bg-slate-200 rounded w-2/3 animate-pulse"></div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+        {/* Veículos - estrutura original */}
+        <section id="veiculos" className="py-20 scroll-mt-16 bg-gradient-to-b from-white to-blue-50">
+          <div className="container">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold md:text-4xl">Veículos que compramos</h2>
+              <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
+                Avaliamos e compramos diversos tipos de veículos com as melhores condições do mercado.
+              </p>
             </div>
-          }
-        >
-          <VeiculosSection />
-        </Suspense>
 
-        <Suspense
-          fallback={
-            <div className="py-20 px-4">
-              <div className="container mx-auto">
-                <div className="h-8 bg-slate-200 rounded w-1/3 mx-auto mb-4 animate-pulse"></div>
-                <div className="h-4 bg-slate-200 rounded w-2/3 mx-auto mb-12 animate-pulse"></div>
-                <div className="max-w-3xl mx-auto space-y-4">
-                  {[1, 2, 3].map((i) => (
-                    <div key={i} className="h-16 bg-slate-200 rounded animate-pulse"></div>
-                  ))}
+            <div className="grid gap-8 md:grid-cols-3">
+              <div className="bg-white rounded-xl overflow-hidden shadow-md transition-all hover:shadow-lg">
+                <div className="h-48 overflow-hidden">
+                  <Image
+                    src="/images/fox2.webp"
+                    alt="Volkswagen Fox Connect prata em movimento"
+                    width={600}
+                    height={400}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-2">Leves</h3>
+                  <p className="text-gray-600">
+                    Compramos veículos leves como Picape, SUV, sedan, entre outros de qualquer marca ou valor.
+                  </p>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-xl overflow-hidden shadow-md transition-all hover:shadow-lg">
+                <div className="h-48 overflow-hidden">
+                  <Image
+                    src="/images/land-rover.webp"
+                    alt="Veículo de luxo blindado"
+                    width={600}
+                    height={400}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-2">Blindado</h3>
+                  <p className="text-gray-600">
+                    Compramos veículos blindados de qualquer marca, valor ou ano de fabricação.
+                  </p>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-xl overflow-hidden shadow-md transition-all hover:shadow-lg">
+                <div className="h-48 overflow-hidden">
+                  <Image
+                    src="/images/fiorino-nova.webp"
+                    alt="Veículo utilitário pequeno como Fiat Fiorino"
+                    width={600}
+                    height={400}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-2">Utilitários</h3>
+                  <p className="text-gray-600">
+                    Compramos veículos utilitário de pequeno porte, como Fiorino, Kangoo, Jumpy, etc.
+                  </p>
                 </div>
               </div>
             </div>
-          }
-        >
-          <FaqSection faqs={faqs} />
-        </Suspense>
+          </div>
+        </section>
+
+        {/* FAQ - estrutura original */}
+        <section id="faq" className="py-20 scroll-mt-16">
+          <div className="container">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold md:text-4xl">Perguntas Frequentes</h2>
+              <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
+                Tire suas dúvidas sobre nosso processo de compra de veículos.
+              </p>
+            </div>
+
+            <div className="max-w-3xl mx-auto space-y-4">
+              <FaqInteractive faqs={faqs} />
+            </div>
+          </div>
+        </section>
       </main>
 
-      {/* Footer renderizado no servidor */}
+      {/* Footer - estrutura original */}
       <footer className="border-t bg-white py-12">
-        <div className="container mx-auto px-4">
+        <div className="container">
           <div className="grid gap-8 md:grid-cols-3">
             <div className="space-y-4">
               <div className="flex items-center">
@@ -266,7 +307,10 @@ export default function Home() {
                 segurança e agilidade.
               </p>
               <div>
-                <button className="bg-white border border-blue-600 text-blue-600 hover:bg-blue-50 flex items-center gap-2 px-4 py-2 rounded text-sm transition-colors">
+                <Button
+                  className="bg-white border border-blue-600 text-blue-600 hover:bg-blue-50 flex items-center gap-2"
+                  size="sm"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -281,7 +325,7 @@ export default function Home() {
                     <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
                   </svg>
                   Fale conosco pelo WhatsApp
-                </button>
+                </Button>
               </div>
             </div>
 
