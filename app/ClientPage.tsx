@@ -80,7 +80,7 @@ export default function ClientPage() {
       <header className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur-md">
         <div className="container flex h-16 items-center justify-between">
           <div className="flex items-center">
-            <div className="h-10 w-10 relative">
+            <div className="h-10 w-10 relative flex items-center justify-center">
               <Image
                 src="/images/icone-carro-azul.webp"
                 alt="Ícone Compro Auto"
@@ -408,7 +408,10 @@ export default function ClientPage() {
                 segurança e agilidade.
               </p>
               <div>
-                <Button className="bg-green-500 hover:bg-green-600 text-white flex items-center gap-2" size="sm">
+                <Button
+                  className="bg-white border border-blue-600 text-blue-600 hover:bg-blue-50 flex items-center gap-2"
+                  size="sm"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
