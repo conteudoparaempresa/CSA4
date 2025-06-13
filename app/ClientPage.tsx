@@ -106,16 +106,18 @@ export default function ClientPage() {
               Benefícios
             </button>
             <button
-              onClick={() => scrollToSection(formularioRef)}
+              onClick={() => scrollToSection(veiculosRef)}
               className="text-sm font-medium hover:text-blue-600 transition-colors"
             >
-              Vender Meu Carro
+              Veículos
+            </button>
+            <button
+              onClick={() => scrollToSection(faqRef)}
+              className="text-sm font-medium hover:text-blue-600 transition-colors"
+            >
+              FAQ
             </button>
           </nav>
-
-          <Button onClick={() => scrollToSection(formularioRef)} size="sm" className="hidden md:inline-flex">
-            Avaliar Meu Veículo
-          </Button>
 
           {/* Mobile Menu Button */}
           <button
@@ -150,15 +152,16 @@ export default function ClientPage() {
             </button>
             <button
               className="block text-sm font-medium hover:text-blue-600 transition-colors py-2 w-full text-left"
-              onClick={() => scrollToSection(formularioRef)}
+              onClick={() => scrollToSection(veiculosRef)}
             >
-              Vender Meu Carro
+              Veículos
             </button>
-            <div className="pt-2">
-              <Button onClick={() => scrollToSection(formularioRef)} size="sm" className="w-full">
-                Avaliar Meu Veículo
-              </Button>
-            </div>
+            <button
+              className="block text-sm font-medium hover:text-blue-600 transition-colors py-2 w-full text-left"
+              onClick={() => scrollToSection(faqRef)}
+            >
+              FAQ
+            </button>
           </nav>
         </div>
       </header>

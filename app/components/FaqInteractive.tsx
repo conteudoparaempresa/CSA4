@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, memo } from "react"
+import { useState } from "react"
 import { ChevronDown, ChevronUp } from "lucide-react"
 
 interface FaqItem {
@@ -12,8 +12,7 @@ interface FaqInteractiveProps {
   faqs: FaqItem[]
 }
 
-// Usando memo para evitar re-renderizações desnecessárias
-export const FaqInteractive = memo(function FaqInteractive({ faqs }: FaqInteractiveProps) {
+export function FaqInteractive({ faqs }: FaqInteractiveProps) {
   const [openFaq, setOpenFaq] = useState<number | null>(null)
 
   const toggleFaq = (index: number) => {
@@ -27,8 +26,6 @@ export const FaqInteractive = memo(function FaqInteractive({ faqs }: FaqInteract
           <button
             className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
             onClick={() => toggleFaq(index)}
-            aria-expanded={openFaq === index}
-            aria-controls={`faq-answer-${index}`}
           >
             <h3 className="font-semibold text-gray-900">{faq.question}</h3>
             {openFaq === index ? (
@@ -38,7 +35,6 @@ export const FaqInteractive = memo(function FaqInteractive({ faqs }: FaqInteract
             )}
           </button>
           <div
-            id={`faq-answer-${index}`}
             className={`transition-all duration-300 ease-in-out ${
               openFaq === index ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
             } overflow-hidden`}
@@ -51,6 +47,4 @@ export const FaqInteractive = memo(function FaqInteractive({ faqs }: FaqInteract
       ))}
     </>
   )
-})
-
-export default FaqInteractive
+}

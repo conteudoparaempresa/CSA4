@@ -1,10 +1,9 @@
 "use client"
 
-import { useState, memo } from "react"
+import { useState } from "react"
 import { Menu, X } from "lucide-react"
 
-// Usando memo para evitar re-renderizações desnecessárias
-export const ClientInteractions = memo(function ClientInteractions() {
+export function ClientInteractions() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   const scrollToSection = (id: string) => {
@@ -50,15 +49,12 @@ export const ClientInteractions = memo(function ClientInteractions() {
         className="md:hidden p-2 rounded-md hover:bg-gray-100 transition-colors"
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         aria-label="Toggle menu"
-        aria-expanded={isMobileMenuOpen}
-        aria-controls="mobile-menu"
       >
         {isMobileMenuOpen ? <X className="h-6 w-6 text-gray-600" /> : <Menu className="h-6 w-6 text-gray-600" />}
       </button>
 
       {/* Mobile Navigation Menu */}
       <div
-        id="mobile-menu"
         className={`md:hidden absolute left-0 right-0 top-16 transition-all duration-300 ease-in-out ${
           isMobileMenuOpen
             ? "max-h-64 opacity-100 border-t bg-white/95 backdrop-blur-md"
@@ -94,6 +90,4 @@ export const ClientInteractions = memo(function ClientInteractions() {
       </div>
     </>
   )
-})
-
-export default ClientInteractions
+}
