@@ -17,8 +17,6 @@ const nextConfig = {
     removeConsole: process.env.NODE_ENV === 'production',
   },
   experimental: {
-    // Otimização de CSS
-    optimizeCss: true,
     // Otimização de pacotes
     optimizePackageImports: ['lucide-react'],
   },
