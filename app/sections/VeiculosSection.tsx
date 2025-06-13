@@ -1,10 +1,9 @@
-import type React from "react"
 import Image from "next/image"
 
-export function VeiculosSection({ veiculosRef }: { veiculosRef: React.RefObject<HTMLElement> }) {
+export function VeiculosSection() {
   return (
-    <section ref={veiculosRef} className="py-20 scroll-mt-16 bg-gradient-to-b from-white to-blue-50">
-      <div className="container">
+    <section id="veiculos" className="py-20 scroll-mt-16 bg-gradient-to-b from-white to-blue-50">
+      <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold md:text-4xl">Veículos que compramos</h2>
           <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
@@ -16,13 +15,12 @@ export function VeiculosSection({ veiculosRef }: { veiculosRef: React.RefObject<
           <div className="bg-white rounded-xl overflow-hidden shadow-md transition-all hover:shadow-lg">
             <div className="h-48 overflow-hidden">
               <Image
-                src="/images/fox.webp"
-                alt="Veículo popular hatch"
+                src="/images/fox2.webp"
+                alt="Volkswagen Fox Connect prata em movimento"
                 width={600}
                 height={400}
                 className="w-full h-full object-cover"
                 loading="lazy"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
             </div>
             <div className="p-6">
@@ -42,7 +40,6 @@ export function VeiculosSection({ veiculosRef }: { veiculosRef: React.RefObject<
                 height={400}
                 className="w-full h-full object-cover"
                 loading="lazy"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
             </div>
             <div className="p-6">
@@ -62,7 +59,6 @@ export function VeiculosSection({ veiculosRef }: { veiculosRef: React.RefObject<
                 height={400}
                 className="w-full h-full object-cover"
                 loading="lazy"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
             </div>
             <div className="p-6">
