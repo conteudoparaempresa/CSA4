@@ -1,11 +1,65 @@
 import type { Metadata } from "next"
 import Image from "next/image"
+import dynamic from "next/dynamic"
+import { Suspense } from "react"
 import { CheckCircle, Clock, CreditCard, MessageSquare, ShieldCheck, Award, Car, Phone, MapPin } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { ClientInteractions } from "./components/ClientInteractions"
-import { FormularioWrapper } from "./components/FormularioWrapper"
-import { FaqInteractive } from "./components/FaqInteractive"
+
+// Lazy load componentes pesados
+const FormularioWrapper = dynamic(
+  () => import("./components/FormularioWrapper").then((mod) => ({ default: mod.FormularioWrapper })),
+  {
+    loading: () => <FormularioSkeleton />,
+    ssr: false,
+  },
+)
+
+const FaqInteractive = dynamic(
+  () => import("./components/FaqInteractive").then((mod) => ({ default: mod.FaqInteractive })),
+  {
+    loading: () => (
+      <div className="space-y-4">
+        {[...Array(3)].map((_, i) => (
+          <div key={i} className="bg-white rounded-xl border shadow-sm overflow-hidden">
+            <div className="w-full px-6 py-4 flex items-center justify-between">
+              <div className="h-6 bg-gray-200 rounded w-3/4 animate-pulse"></div>
+              <div className="h-5 w-5 bg-gray-200 rounded-full animate-pulse"></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    ),
+    ssr: true,
+  },
+)
+
+// Skeleton para o formulário
+function FormularioSkeleton() {
+  return (
+    <div className="space-y-4">
+      <div className="mb-4">
+        <div className="h-7 bg-gray-200 rounded w-3/4 mx-auto mb-2 animate-pulse"></div>
+        <div className="h-5 bg-gray-100 rounded w-1/2 mx-auto animate-pulse"></div>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div className="h-9 bg-gray-200 rounded animate-pulse"></div>
+        <div className="h-9 bg-gray-200 rounded animate-pulse"></div>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div className="h-9 bg-gray-200 rounded animate-pulse"></div>
+        <div className="h-9 bg-gray-200 rounded animate-pulse"></div>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div className="h-9 bg-gray-200 rounded animate-pulse"></div>
+        <div className="h-9 bg-gray-200 rounded animate-pulse"></div>
+        <div className="h-9 bg-gray-200 rounded animate-pulse"></div>
+      </div>
+      <div className="h-10 bg-blue-600 rounded animate-pulse"></div>
+    </div>
+  )
+}
 
 const faqs = [
   {
@@ -44,11 +98,11 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <div className="flex min-h-screen flex-col">
-      {/* Header com estrutura original */}
-      <header className="absolute top-0 z-50 w-full border-b bg-white/80 backdrop-blur-md">
+      {/* Header com estrutura original e classes críticas */}
+      <header className="header-critical">
         <div className="container flex h-16 items-center justify-between">
           <div className="flex items-center">
-            <div className="h-10 w-10 relative flex items-center justify-center">
+            <div className="logo-container relative flex items-center justify-center">
               <Image
                 src="/images/icone-compro-seu-auto-azul.svg"
                 alt="Ícone Compro Auto"
@@ -56,6 +110,7 @@ export default function Home() {
                 height={40}
                 className="object-contain"
                 priority
+                fetchPriority="high"
               />
             </div>
           </div>
@@ -64,8 +119,8 @@ export default function Home() {
       </header>
 
       <main className="flex-1">
-        {/* Hero Section com estrutura original */}
-        <section className="relative overflow-hidden bg-gradient-to-b from-blue-50 to-white min-h-screen flex items-center pt-20 md:pt-0">
+        {/* Hero Section com estrutura original e classes críticas */}
+        <section className="hero-critical">
           <div className="container relative z-10">
             <div className="grid gap-8 md:grid-cols-2 md:gap-12 items-center md:-mt-16">
               <div className="space-y-6">
@@ -83,9 +138,11 @@ export default function Home() {
 
               <div
                 id="formulario"
-                className="relative mx-auto w-full max-w-lg rounded-xl bg-white/95 p-5 backdrop-blur-sm shadow-lg"
+                className="form-container relative mx-auto w-full max-w-lg rounded-xl bg-white/95 p-5 backdrop-blur-sm shadow-lg"
               >
-                <FormularioWrapper />
+                <Suspense fallback={<FormularioSkeleton />}>
+                  <FormularioWrapper />
+                </Suspense>
               </div>
             </div>
           </div>
@@ -197,7 +254,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Veículos - estrutura original */}
+        {/* Veículos - estrutura original com otimização de imagens */}
         <section id="veiculos" className="py-20 scroll-mt-16 bg-gradient-to-b from-white to-blue-50">
           <div className="container">
             <div className="text-center mb-12">
@@ -217,6 +274,7 @@ export default function Home() {
                     height={400}
                     className="w-full h-full object-cover"
                     loading="lazy"
+                    sizes="(max-width: 768px) 100vw, 33vw"
                   />
                 </div>
                 <div className="p-6">
@@ -236,6 +294,7 @@ export default function Home() {
                     height={400}
                     className="w-full h-full object-cover"
                     loading="lazy"
+                    sizes="(max-width: 768px) 100vw, 33vw"
                   />
                 </div>
                 <div className="p-6">
@@ -255,6 +314,7 @@ export default function Home() {
                     height={400}
                     className="w-full h-full object-cover"
                     loading="lazy"
+                    sizes="(max-width: 768px) 100vw, 33vw"
                   />
                 </div>
                 <div className="p-6">
@@ -268,7 +328,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* FAQ - estrutura original */}
+        {/* FAQ - estrutura original com lazy loading */}
         <section id="faq" className="py-20 scroll-mt-16">
           <div className="container">
             <div className="text-center mb-12">
@@ -279,19 +339,34 @@ export default function Home() {
             </div>
 
             <div className="max-w-3xl mx-auto space-y-4">
-              <FaqInteractive faqs={faqs} />
+              <Suspense
+                fallback={
+                  <div className="space-y-4">
+                    {[...Array(6)].map((_, i) => (
+                      <div key={i} className="bg-white rounded-xl border shadow-sm overflow-hidden">
+                        <div className="w-full px-6 py-4 flex items-center justify-between">
+                          <div className="h-6 bg-gray-200 rounded w-3/4 animate-pulse"></div>
+                          <div className="h-5 w-5 bg-gray-200 rounded-full animate-pulse"></div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                }
+              >
+                <FaqInteractive faqs={faqs} />
+              </Suspense>
             </div>
           </div>
         </section>
       </main>
 
-      {/* Footer - estrutura original */}
+      {/* Footer - estrutura original com otimização de imagens */}
       <footer className="border-t bg-white py-12">
         <div className="container">
           <div className="grid gap-8 md:grid-cols-3">
             <div className="space-y-4">
               <div className="flex items-center">
-                <div className="h-14 w-auto relative mb-0.5">
+                <div className="h-14 w-auto relative mb-0.5" style={{ width: "180px", height: "52px" }}>
                   <Image
                     src="/images/logo-compro-seu-auto-azul.webp"
                     alt="Logo Compro Seu Auto"

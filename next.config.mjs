@@ -7,10 +7,24 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    // Mantendo a configuração original
-    unoptimized: true,
+    // Otimização de imagens
+    formats: ['image/avif', 'image/webp'],
+    minimumCacheTTL: 31536000, // 1 ano
+    unoptimized: false, // Habilitar otimização de imagens
   },
-  // Removendo configurações experimentais problemáticas
+  // Otimizações de compilação
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
+  experimental: {
+    // Otimização de CSS
+    optimizeCss: true,
+    // Otimização de pacotes
+    optimizePackageImports: ['lucide-react'],
+  },
+  // Configurações de cache
+  poweredByHeader: false,
+  compress: true,
 }
 
 export default nextConfig
